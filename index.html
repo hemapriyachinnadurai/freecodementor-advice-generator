@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- displays site properly based on user's device -->
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <title>Frontend Mentor | Advice generator app</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&family=Outfit:wght@100;200;600&family=Red+Hat+Display:wght@300&display=swap" rel="stylesheet">
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+        .body {
+            width: 100%;
+            height: 100%;
+            background-color: hsl(216, 50%, 16%);
+        }
+        
+        .card {
+            margin: 0;
+            height: 250px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            border-radius: 10px;
+            background: hsl(217, 19%, 24%);
+        }
+        
+        .advice {
+            color: hsl(150, 100%, 66%);
+            font-family: 'Manrope', sans-serif;
+            position: absolute;
+            left: 115px;
+            font-size: 12px;
+            top: 30px;
+        }
+        
+        .line {
+            position: relative;
+            width: 300px;
+            margin-top: 170px;
+        }
+        
+        .line-img {
+            position: absolute;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 260px;
+            left: 20px;
+            right: 20px;
+        }
+        
+        .center-part {
+            position: relative;
+            background: #50fead;
+            width: 30px;
+            height: 30px;
+            margin-right: auto;
+            margin-left: auto;
+            margin-top: 235px;
+            border-radius: 50px;
+        }
+        
+        .dice-img {
+            position: absolute;
+            display: block;
+            margin: 8px 8px;
+            width: 15px;
+            height: 15px;
+        }
+        
+        .quote-span {
+            color: #fff;
+            font-size: 15px;
+            position: absolute;
+            top: 80px;
+            left: 20px;
+            text-align: center;
+            right: 20px;
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="body">
+    <script>
+        let advices = [];
+        fetch('https://api.adviceslip.com/advice').then(res => {
+            return res.json();
+        }).then(data => {
+            advices.push(data.slip);
+            advices.forEach(lang => {
+                let span = document.createElement('span');
+                span.className = 'quote-span';
+                span.appendChild(document.createTextNode(lang.advice));
+                document.querySelector('#quotes').appendChild(span);
+            });
+        });
+    </script>
+    <div>
+        <div class="card">
+            <div class="advice">Advice #117</div>
+            <div id="quotes">
+            </div>
+            <div class="line">
+                <img class="line-img" src="images/pattern-divider-desktop.svg" />
+            </div>
+            <div class="center-part">
+                <img class="dice-img" src="images/icon-dice.svg" />
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
